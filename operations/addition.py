@@ -5,7 +5,7 @@ def addition(*numbers : float) -> float:
     [Args]:
     *numbers (float): nombres à additionner
     """
-    print(numbers)
+
     total = 0       # Definition du total que l'on va retounrer
 
     # pour chaque nombre dans la liste de nombres
