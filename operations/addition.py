@@ -4,6 +4,10 @@ def addition(*numbers : float) -> float:
 
     [Args]:
     *numbers (float): nombres à additionner
+
+    [Returns]:
+    total (float): somme des nombres
+
     """
 
     total = 0       # Definition du total que l'on va retounrer
