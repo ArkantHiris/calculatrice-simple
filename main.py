@@ -82,9 +82,6 @@ def user_interaction():
                 total = division(total, number)
                 number = None
 
-            print(total)
-
-
     return total
     
 
