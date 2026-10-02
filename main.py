@@ -6,6 +6,7 @@ from operations.subtraction import subtraction
 from operations.division import division
 from operations.modulo import modulo
 from operations.exponentiation import exponentiation
+from operations.square_root import square_root
 
 
 def calculatrice() -> float:
@@ -20,8 +21,11 @@ def calculatrice() -> float:
     total (float): Le résultat des calculs
     """
 
-    # Liste des choix des reconnus comme opérateur par le programme.
-    valid_choices = ["+", "-", "*", "/", "%", "**", "="]
+    # Liste des opérateurs reconnus par le programme, dans le cas de deux valeurs nécessaires.
+    two_values_operators = ["+", "-", "*", "/", "%", "**", "="]
+
+    # Liste des opérateurs reconnus par le programme, dans le cas d'une seule valeur nécessaire.
+    one_value_operators = ["V","v"]
 
     # Statut du calcul (number ou operator) indiquant à quelle étape du calcul nous sommes   
     current_requirement = "number"
@@ -89,8 +93,8 @@ def calculatrice() -> float:
                 # Récupère l'entrée de l'utilisateur et retire les caractères spéciaux
                 entry = input("Entrez un opérateur : ").strip()
 
-                # Si l'opérateur fait bien parti des opérateurs autorisés
-                if entry in valid_choices:
+                # Si l'opérateur fait bien parti des opérateurs autorisés pour deux valeurs
+                if entry in two_values_operators:
 
                     # On applique entry à operator
                     operator = entry
@@ -99,6 +103,16 @@ def calculatrice() -> float:
                     # On sort de la boucle
                     break
 
+                # Si l'opérateur fait bien parti des opérateurs autorisés pour une valeur
+                elif entry in one_value_operators:
+                    
+                    # Selon l'opérateur choisi, on entre dans une condition différente
+                    # Et on apelle la fonction correspondante
+                    # Puis on met à jour total
+                    if entry == "v" or entry == "V":
+
+                        total = square_root(total)
+                
                 # Sinon on explique que le choix n'est pas valide et on retourne dans la boucle
                 else:
                     print("Cet opérateur n'est pas reconnu ")
@@ -120,8 +134,7 @@ def calculatrice() -> float:
                 
                 total = subtraction(total, number)
                 number = None
-            
-            
+                
             elif operator == "*":
                 
                 total = multiply(total, number)
@@ -141,6 +154,7 @@ def calculatrice() -> float:
 
                 total = exponentiation(total, number)
                 number = None
+
 
     # On retourne le total si "=" est entré
     return total
