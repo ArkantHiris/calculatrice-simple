@@ -8,6 +8,7 @@ from operations.modulo import modulo
 from operations.exponentiation import exponentiation
 from operations.square_root import square_root
 from operations.trigonometry import sine, consine, tangent
+from operations.logarithm import logarithm
 
 
 def calculatrice() -> float:
@@ -126,6 +127,10 @@ def calculatrice() -> float:
                     elif entry == "tan":
 
                         total = tangent(total)
+
+                    elif entry == "log":
+
+                        total = logarithm(total)
                 
                 # Sinon on explique que le choix n'est pas valide et on retourne dans la boucle
                 else:

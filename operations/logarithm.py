@@ -25,6 +25,3 @@ def logarithm(number:float, base:float=None)->float:
         # Exception si la fonction rencontre une erreur
         print("Erreur dans l'opération")
 
-
-print(logarithm(3.14))
-    
