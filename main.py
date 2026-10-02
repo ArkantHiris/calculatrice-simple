@@ -7,6 +7,7 @@ from operations.division import division
 from operations.modulo import modulo
 from operations.exponentiation import exponentiation
 from operations.square_root import square_root
+from operations.trigonometry import sine, consine, tangent
 
 
 def calculatrice() -> float:
@@ -25,7 +26,7 @@ def calculatrice() -> float:
     two_values_operators = ["+", "-", "*", "/", "%", "**", "="]
 
     # Liste des opérateurs reconnus par le programme, dans le cas d'une seule valeur nécessaire.
-    one_value_operators = ["V","v"]
+    one_value_operators = ["root","racine","cos","sin","tan","log"]
 
     # Statut du calcul (number ou operator) indiquant à quelle étape du calcul nous sommes   
     current_requirement = "number"
@@ -92,6 +93,7 @@ def calculatrice() -> float:
 
                 # Récupère l'entrée de l'utilisateur et retire les caractères spéciaux
                 entry = input("Entrez un opérateur : ").strip()
+                entry = entry.lower()
 
                 # Si l'opérateur fait bien parti des opérateurs autorisés pour deux valeurs
                 if entry in two_values_operators:
@@ -105,13 +107,25 @@ def calculatrice() -> float:
 
                 # Si l'opérateur fait bien parti des opérateurs autorisés pour une valeur
                 elif entry in one_value_operators:
-                    
+
                     # Selon l'opérateur choisi, on entre dans une condition différente
                     # Et on apelle la fonction correspondante
                     # Puis on met à jour total
-                    if entry == "v" or entry == "V":
+                    if entry == "root" or entry == "racine":
 
                         total = square_root(total)
+
+                    elif entry == "sin":
+
+                        total = sine(total)
+
+                    elif entry == "cos":
+
+                        total = consine(total)
+
+                    elif entry == "tan":
+
+                        total = tangent(total)
                 
                 # Sinon on explique que le choix n'est pas valide et on retourne dans la boucle
                 else:

@@ -54,5 +54,3 @@ def tangent(angle:float)->float:
         # math.radians()
     except ArithmeticError, ValueError:
         print("Erreur dans l'opération")
-
-print(tangent(45))
