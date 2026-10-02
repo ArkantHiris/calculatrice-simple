@@ -115,4 +115,3 @@ def menu_conversions():
         except ValueError as err:
             print(f"Erreur : {err}")
 
-menu_conversions()
