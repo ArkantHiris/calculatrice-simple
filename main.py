@@ -133,7 +133,7 @@ def calculatrice() -> float:
     # On retourne le total si "=" est entré
     return total
     
-
+ 
 print(calculatrice())
 
 
