@@ -4,6 +4,8 @@ from operations.addition import addition
 from operations.multiply import multiply
 from operations.subtraction import subtraction
 from operations.division import division
+from operations.modulo import modulo
+from operations.exponentiation import exponentiation
 
 
 def calculatrice() -> float:
@@ -19,7 +21,7 @@ def calculatrice() -> float:
     """
 
     # Liste des choix des reconnus comme opérateur par le programme.
-    valid_choices = ["+","-","*","/","="]
+    valid_choices = ["+", "-", "*", "/", "%", "**", "="]
 
     # Statut du calcul (number ou operator) indiquant à quelle étape du calcul nous sommes   
     current_requirement = "number"
@@ -128,6 +130,16 @@ def calculatrice() -> float:
             elif operator == "/":
                 
                 total = division(total, number)
+                number = None
+
+            elif operator == "%":
+                            
+                total = modulo(total, number)
+                number = None
+
+            elif operator == "**":
+
+                total = exponentiation(total, number)
                 number = None
 
     # On retourne le total si "=" est entré
