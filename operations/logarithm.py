@@ -15,7 +15,7 @@ def logarithm(number:float, base:float=None)->float:
         if not base:
         # Si la base n'est pas définie lorsqu'on appelle la
         # fonction :
-            return math.log(number)
+            return math.log10(number)
             # On exécute le logarithme avec la base par défaut
         else:
             return math.log(number, base)

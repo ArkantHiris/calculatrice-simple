@@ -1,6 +1,3 @@
-import sys
-
-
 # Constante physique (température la plus basse théoriquement atteignable)
 ZERO_ABSOLU_CELSIUS = -273.15
 ZERO_ABSOLU_FAHRENHEIT = -459.67
@@ -58,10 +55,9 @@ def menu_conversions():
         print("6. Fahrenheit -> Celsius")
         print("7. Celsius -> Kelvin")
         print("8. Kelvin -> Celsius")
-        print("9. Aller sur la calculatrice")
-        print("10. Quitter l'application")
+        print("9. Quitter l'application")
 
-        choix = input("\nChoisissez une option (1-10) : ")
+        choix = input("\nChoisissez une option (1-9) : ")
 
         try:
             if choix == "1":
@@ -105,11 +101,8 @@ def menu_conversions():
                 print(f"Résultat : {val} K = {kelvin_to_celsius(val)} °C")
 
             elif choix == "9":
-                # On sort du menu de conversion pour retourner au script
-                break
-            elif choix == "10":
                 print("\nAu revoir!")
-                sys.exit()  # Ferme complètement le programme
+                return
             else:
                 print("Option invalide.")
         except ValueError as err:
