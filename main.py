@@ -1,181 +1,41 @@
-# Fichier principal contenant toutes les fonctions
+from unit_conversion import *
+from calculatrice import *   
 
-from operations.addition import addition
-from operations.multiply import multiply
-from operations.subtraction import subtraction
-from operations.division import division
-from operations.modulo import modulo
-from operations.exponentiation import exponentiation
-from operations.square_root import square_root
-from operations.trigonometry import sine, consine, tangent
-
-
-def calculatrice() -> float:
+def interface_user() -> float:
     """
-    Fonction récupérant les inputs de l'utilisateur telle une calculatrice
-    On demande un premier nombre ( qui sera contrôlé ), puis un opérateur ( contrôlé aussi ) et enfin un second nombre.
-    L'entrée du second nombre lance le calcul du premier total.
-    L'utilisateur a ensuite la possibilité de cloturer le calcul avec "=" et obtenir le résultat ou continuer en entrant un
-    nouvel opérateur.
-
-    [Returns]:
-    total (float): Le résultat des calculs
+    Fonction gérant la communication de départ avec l'utilisateur
+    Elle lui offre le choix entre la calculatrice et le convertisseur
+    Puis apelle la fonction correspondante
     """
 
-    # Liste des opérateurs reconnus par le programme, dans le cas de deux valeurs nécessaires.
-    two_values_operators = ["+", "-", "*", "/", "%", "**", "="]
+    print("Bonjour, que désirez vous faire : ")
+    print("1. Calculatrice")
+    print("2. Convertisseur")
 
-    # Liste des opérateurs reconnus par le programme, dans le cas d'une seule valeur nécessaire.
-    one_value_operators = ["root","racine","cos","sin","tan","log"]
+    # Enregistrement du choix de l'utilisateur
+    choice = input("Entrez 1 ou 2 : ")
 
-    # Statut du calcul (number ou operator) indiquant à quelle étape du calcul nous sommes   
-    current_requirement = "number"
+    # Tant que l'utilisateur n'utilisera pas un des choix reconnus, il restera dans la boucle
+    while True:
 
-    # Statut du calcul (True ou False) indiquant si nous sommes à la première entrée ou non
-    first_entry = True
+        # Le programme ne reconnait que 1 et 2
+        try:
+            if choice == "1":
 
-    # L'opérateur entré en dernier
-    operator = ""
+                print(calculatrice())
+                break
 
-    # Le résultat du calcul
-    total = None
+            elif choice == "2":
 
-    # Le dernier nombre entré par l'utilisateur
-    number = None
+                menu_conversions()
+                break
 
-    # Tant que l'utilisateur n'entre pas l'opérateur "=", on continue le calcul
-    while operator != "=":
+        except ValueError:
 
-        # Si un nombre est demandé
-        if current_requirement == "number":
-
-            # Tant que l'utilisateur ne nous a pas envoyé un nombre correct, on reste dans la boucle
-            while True:
-
-                # Récupère l'entrée de l'utilisateur et retire les caractères spéciaux
-                entry =  input("Entrez un nombre : ").strip()
-                # Pour les français, on remplace les virgules par des points
-                entry = entry.replace(",",".")
-
-                # On essaye d'attribuer cette entrée à nos variables, à la moindre erreur, on part en exception
-                try:
-
-                    # On transforme en float l'entrée de l'utilisateur (qui était en str)
-                    value = float(entry)
-
-                    # Si c'est la première entrée de l'utilisateur
-                    if first_entry == True:
-
-                        # Alors total est égal à value
-                        total = value
-                        # Et on retire le statut de première entrée, car total ne sera plus nul
-                        first_entry = False
-
-                    # Sinon, c'est number qui est égal à value
-                    else:
-
-                        number = value
-
-                    # On a maintenant besoin d'un opérateur
-                    current_requirement = "operator"
-                    # On sort de la boucle
-                    break
-
-                # Si une erreur est survenue, on retourne dans la boucle
-                except ValueError:
-                    print("Erreur : veuillez entrez un nombre entier ou décimal ")
-
-        # Sinon on demande un opérateur
-        else:
-
-            # Tant que l'utilisateur ne nous a pas envoyé un opérateur correct, on reste dans la boucle
-            while True:
-
-                # Récupère l'entrée de l'utilisateur et retire les caractères spéciaux
-                entry = input("Entrez un opérateur : ").strip()
-                entry = entry.lower()
-
-                # Si l'opérateur fait bien parti des opérateurs autorisés pour deux valeurs
-                if entry in two_values_operators:
-
-                    # On applique entry à operator
-                    operator = entry
-                    # On a maintenant besoin d'un nombre
-                    current_requirement = "number"
-                    # On sort de la boucle
-                    break
-
-                # Si l'opérateur fait bien parti des opérateurs autorisés pour une valeur
-                elif entry in one_value_operators:
-
-                    # Selon l'opérateur choisi, on entre dans une condition différente
-                    # Et on apelle la fonction correspondante
-                    # Puis on met à jour total
-                    if entry == "root" or entry == "racine":
-
-                        total = square_root(total)
-
-                    elif entry == "sin":
-
-                        total = sine(total)
-
-                    elif entry == "cos":
-
-                        total = consine(total)
-
-                    elif entry == "tan":
-
-                        total = tangent(total)
-                
-                # Sinon on explique que le choix n'est pas valide et on retourne dans la boucle
-                else:
-                    print("Cet opérateur n'est pas reconnu ")
-
-        # Si total et number sont différents de None, et qu'opérateur n'est pas vide
-        if total != None and operator != "" and number != None:
-
-            # Selon l'opérateur choisi, on entre dans une condition differente
-            # On apelle la fonction correspondante pour mettre à jour total
-            # Et number repasse en None
-
-            if operator == "+":
-                
-                total = addition(total, number)
-                number = None
-            
-            
-            elif operator == "-":
-                
-                total = subtraction(total, number)
-                number = None
-                
-            elif operator == "*":
-                
-                total = multiply(total, number)
-                number = None
-
-            elif operator == "/":
-                
-                total = division(total, number)
-                number = None
-
-            elif operator == "%":
-                            
-                total = modulo(total, number)
-                number = None
-
-            elif operator == "**":
-
-                total = exponentiation(total, number)
-                number = None
+            print("Cette entrée n'est pas reconnue, recommencez ")
 
 
-    # On retourne le total si "=" est entré
-    return total
-    
- 
-print(calculatrice())
-
+interface_user()
 
 
     
