@@ -1,5 +1,6 @@
-from unit_conversion import *
-from calculatrice import *   
+from features.unit_conversion import *
+from features.calculatrice import * 
+from features.history import *  
 
 def interface_user() -> float:
     """
@@ -12,27 +13,32 @@ def interface_user() -> float:
     print("1. Calculatrice")
     print("2. Convertisseur")
 
-    # Enregistrement du choix de l'utilisateur
-    choice = input("Entrez 1 ou 2 : ")
-
     # Tant que l'utilisateur n'utilisera pas un des choix reconnus, il restera dans la boucle
     while True:
 
+        # Enregistrement du choix de l'utilisateur
+        choice = input("Entrez 1 ou 2 : ")      
+
         # Le programme ne reconnait que 1 et 2
-        try:
-            if choice == "1":
+        
+        if choice == "1":
 
-                print(calculatrice())
-                break
+            print("Bienvenu dans la calculatrice")
+            print(f"Résultat final : {calculatrice()}")
 
-            elif choice == "2":
+            export_history()    # On exporte l'historique des calculs
+            print("Un historique de vos calculs est enregistré dans history/historique.txt")
+            break
 
-                menu_conversions()
-                break
+        elif choice == "2":
 
-        except ValueError:
+            menu_conversions()
+            break
+
+        else:
 
             print("Cette entrée n'est pas reconnue, recommencez ")
+
 
 
 interface_user()
