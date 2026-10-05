@@ -7,6 +7,7 @@ from operations.exponentiation import exponentiation
 from operations.square_root import square_root
 from operations.trigonometry import sine, consine, tangent
 from operations.logarithm import logarithm
+from features.history import update_history
 
 def calculatrice() -> float:
     """
@@ -15,6 +16,10 @@ def calculatrice() -> float:
     L'entrée du second nombre lance le calcul du premier total.
     L'utilisateur a ensuite la possibilité de cloturer le calcul avec "=" et obtenir le résultat ou continuer en entrant un
     nouvel opérateur.
+
+    Cas particulier de l'opérateur qui n'a besoin que d'une seule valeur. Le calcul est déclenché dès l'entrée de l'opérateur.
+
+    Après chaque calcul, on apelle la fonction update_history pour mettre à jour l'historique.
 
     [Returns]:
     total (float): Le résultat des calculs
@@ -109,25 +114,35 @@ def calculatrice() -> float:
                     # Selon l'opérateur choisi, on entre dans une condition différente
                     # Et on apelle la fonction correspondante
                     # Puis on met à jour total
+
+                    history_total = total
+
                     if entry == "root" or entry == "racine":
 
                         total = square_root(total)
+                        update_history(entry, total, history_total, 0)
 
                     elif entry == "sin":
 
                         total = sine(total)
+                        update_history(entry, total, history_total, 0)
 
                     elif entry == "cos":
 
                         total = consine(total)
+                        update_history(entry, total, history_total, 0)
 
                     elif entry == "tan":
 
                         total = tangent(total)
+                        update_history(entry, total, history_total, 0)
 
                     elif entry == "log":
 
                         total = logarithm(total)
+                        update_history(entry, total, history_total, 0)
+
+                    print(f"Résultat : {total}")
                 
                 # Sinon on explique que le choix n'est pas valide et on retourne dans la boucle
                 else:
@@ -140,36 +155,54 @@ def calculatrice() -> float:
             # On apelle la fonction correspondante pour mettre à jour total
             # Et number repasse en None
 
+            history_total = total
+
             if operator == "+":
-                
+
                 total = addition(total, number)
+                update_history(operator, total, history_total, number)
                 number = None
             
             
             elif operator == "-":
-                
+
                 total = subtraction(total, number)
+                update_history(operator, total, history_total, number)
                 number = None
                 
             elif operator == "*":
-                
+
                 total = multiply(total, number)
+                update_history(operator, total, history_total, number)
                 number = None
 
             elif operator == "/":
-                
-                total = division(total, number)
-                number = None
+
+                if number == 0:         # Pour éliminer les erreurs liées à 0
+                    print("Division par 0 impossible")
+                    break
+                else:
+                    total = division(total, number)
+                    update_history(operator, total, history_total, number)
+                    number = None
 
             elif operator == "%":
-                            
-                total = modulo(total, number)
-                number = None
+
+                if number == 0:         # Pour éliminer les erreurs liées à 0
+                    print("Division par 0 impossible")
+                    break
+                else:
+                    total = modulo(total, number)
+                    update_history(operator, total, history_total, number)
+                    number = None
 
             elif operator == "**":
 
                 total = exponentiation(total, number)
+                update_history(operator, total, history_total, number)
                 number = None
+
+            print(f"Résultat : {total}")
 
 
     # On retourne le total si "=" est entré
