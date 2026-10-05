@@ -178,15 +178,23 @@ def calculatrice() -> float:
 
             elif operator == "/":
 
-                total = division(total, number)
-                update_history(operator, total, history_total, number)
-                number = None
+                if number == 0:         # Pour éliminer les erreurs liées à 0
+                    print("Division par 0 impossible")
+                    break
+                else:
+                    total = division(total, number)
+                    update_history(operator, total, history_total, number)
+                    number = None
 
             elif operator == "%":
 
-                total = modulo(total, number)
-                update_history(operator, total, history_total, number)
-                number = None
+                if number == 0:         # Pour éliminer les erreurs liées à 0
+                    print("Division par 0 impossible")
+                    break
+                else:
+                    total = modulo(total, number)
+                    update_history(operator, total, history_total, number)
+                    number = None
 
             elif operator == "**":
 
