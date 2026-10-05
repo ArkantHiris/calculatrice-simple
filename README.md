@@ -1,4 +1,4 @@
-# Calculatrice & Convertisseur d'Unités CLI
+# Calculatrice & Convertisseur d'Unités 
 
 Application console en Python dotée d'une calculatrice, un convertisseur d'unités ainsi qu'un système d'exportation automatique d'historique.
 
